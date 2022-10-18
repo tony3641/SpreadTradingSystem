@@ -1,6 +1,7 @@
+from pickletools import optimize
 from ib_insync import *
 from enum import Enum
-
+import math
 import ib_insync
 
 class SpreadType(Enum):
@@ -74,6 +75,34 @@ def calc_spread_price(ib : IB, spread_type : SpreadType, long_contract : Contrac
             stop_price = 3*price
             
     return price, stop_price
+
+
+def calc_optimized_long_leg(ib: IB, spread_type : SpreadType, short_contract : Contract, \
+    *tickers, margin : int, max_gap : int):
+    max_premium = 0
+    short_ticker = ib.reqTickers(short_contract)[0] #update price
+    if spread_type == SpreadType.BULLPUT:
+        print('Sweeping PUT chain to find best long leg...')
+        for gap in range(1,int(max_gap/5)+1):
+            long_strike = short_contract.strike - gap * 5
+            long_contract = [ticker for ticker in tickers if ticker.contract.strike == long_strike][0].contract
+            long_ticker = ib.reqTickers(long_contract)[0] #update price
+            print('Checking:'+str(long_contract.strike)+' PUT:')
+            quantity = math.floor(margin/((short_contract.strike-long_contract.strike)*100))
+            print(str(quantity)+' spread for margin = $'+str(margin))
+            premium = abs(long_ticker.ask - short_ticker.bid) * quantity * 100
+            print('Possible premium = $'+str(premium)+'\n')
+            if premium > max_premium:
+                max_premium = premium
+                optimized_contract = long_contract
+                optimized_quantity = quantity
+                
+    elif spread_type == SpreadType.BEARCALL:
+        pass
+    else:
+        pass
+    print('Optimized long leg found: '+str(optimized_contract.strike)+' PUT\n')
+    return optimized_contract, optimized_quantity
 
 
 
