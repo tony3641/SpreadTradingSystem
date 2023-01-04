@@ -1,0 +1,63 @@
+<IB connected to XXX.0.0.1:XXXX clientId=2>
+Time = 2023-01-04 00:00:51.275596
+This is a PAPER TRADE account!!!!!
+-----------------------------------
+Cash Balance = $1019013.5879
+Buying Power = $4014573.92
+Unrealized PnL = $165.28
+     account                                           contract  position     avgCost
+0  DUXXXXXXX  Option(conId=603761279, symbol='SPX', lastTrad...      -1.0   78.459350
+1  DUXXXXXXX  Option(conId=601921395, symbol='SPX', lastTrad...       1.0   36.540650
+2  DUXXXXXXX  Forex('EURUSD', conId=12087792, localSymbol='E...   20000.0    0.990260
+3  DUXXXXXXX  Stock(conId=273544, symbol='QCOM', exchange='N...    -100.0  108.857377
+----------------------------------
+Retriving last trading day data...
+Most recent SPX=3824.07
+Expiration date=20230104
+Fetching option chain...
+Sweeping PUT chain to find best long leg...
+Checking:3735.0 PUT:
+20 spread for margin = $10000
+Possible premium = $99.99999999999987
+
+Checking:3730.0 PUT:
+10 spread for margin = $10000
+Possible premium = $149.99999999999994
+
+Checking:3725.0 PUT:
+6 spread for margin = $10000
+Possible premium = $150.0
+
+Checking:3720.0 PUT:
+5 spread for margin = $10000
+Possible premium = $150.0
+
+Checking:3715.0 PUT:
+4 spread for margin = $10000
+Possible premium = $140.0
+
+Checking:3710.0 PUT:
+3 spread for margin = $10000
+Possible premium = $120.0
+
+Optimized long leg found: 3725.0 PUT
+
+Spread generated:
+
+Strategy = SpreadType.BULLPUT
+Short Leg: Strike = 3740.0 delta=-0.04114791200323553
+Long Leg: Stike = 3725.0 delta=-0.01741387764340041
+Quantity = 6
+Margin required = 9000.0 USD
+Estimated premium = -0.25000000000000006
+Take profit @ expire
+Stop loss @ -1.2500000000000002
+
+
+---------------
+Contract(secType='BAG', symbol='SPX', exchange='SMART', currency='USD', comboLegs=[ComboLeg(conId=601921414, ratio=1, action='SELL', exchange='SMART', openClose=0, shortSaleSlot=0, designatedLocation='', exemptCode=-1), ComboLeg(conId=601921395, ratio=1, action='BUY', exchange='SMART', openClose=0, shortSaleSlot=0, designatedLocation='', exemptCode=-1)])
+---------------
+
+[TradeLogEntry(time=datetime.datetime(2023, 1, 4, 8, 1, 21, 18463, tzinfo=datetime.timezone.utc), status='PendingSubmit', message='', errorCode=0)]
+[TradeLogEntry(time=datetime.datetime(2023, 1, 4, 8, 1, 21, 520314, tzinfo=datetime.timezone.utc), status='PendingSubmit', message='', errorCode=0)]
+[TradeLogEntry(time=datetime.datetime(2023, 1, 4, 8, 1, 22, 36909, tzinfo=datetime.timezone.utc), status='PendingSubmit', message='', errorCode=0), TradeLogEntry(time=datetime.datetime(2023, 1, 4, 8, 1, 22, 111768, tzinfo=datetime.timezone.utc), status='PreSubmitted', message='', errorCode=0)]
