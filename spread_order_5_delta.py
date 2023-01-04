@@ -86,7 +86,7 @@ short_leg=[ticker for ticker in tickers if (ticker.lastGreeks.delta != None)\
 long_contract, quantity=calc_optimized_long_leg(ib,SpreadType.BULLPUT,short_leg.contract,*tickers,margin=10000,max_gap=30)
 long_leg=ib.reqTickers(long_contract)[0]
 
-spread_price,stop_price=calc_spread_price(ib,SpreadType.BULLPUT,long_leg.contract,short_leg.contract,1,2)
+spread_price,stop_price=calc_spread_price(ib,SpreadType.BULLPUT,long_leg.contract,short_leg.contract,0,2)
 spread_contract=create_vertical_spread(long_leg.contract,short_leg.contract)
 
 print('Spread generated:\n')
@@ -103,7 +103,7 @@ print('\n---------------')
 print(spread_contract)
 print('---------------\n')
 
-orders=ib.bracketOrder('BUY',quantity,spread_price,0,stop_price)
+orders=ib.bracketOrder('BUY',quantity,spread_price,SELL_SIDE_TAKE_PROFIT_THRESHOLD,stop_price)
 for order in orders:
     trade=ib.placeOrder(spread_contract,order)
     ib.sleep(0.5)
