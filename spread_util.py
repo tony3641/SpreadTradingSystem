@@ -10,8 +10,6 @@ class SpreadType(Enum):
     BULLCALL=3
     BEARCALL=4
 
-PUT = 'P'
-CALL = 'C'
 SELL_SIDE_TAKE_PROFIT_THRESHOLD=0.05 #take profit with a neg spread price
 '''
 This function creates a vertical spread, 
