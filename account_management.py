@@ -15,7 +15,7 @@ def get_index_quote_return_str(ib : IB):
         contract=spx,
         endDateTime='',
         durationStr='60 S',
-        barSizeSetting='1 secs',
+        barSizeSetting='5 secs',
         whatToShow='TRADES',
         useRTH=False,
         formatDate='1'
@@ -24,17 +24,32 @@ def get_index_quote_return_str(ib : IB):
         contract=ndx,
         endDateTime='',
         durationStr='60 S',
-        barSizeSetting='1 secs',
+        barSizeSetting='5 secs',
         whatToShow='TRADES',
         useRTH=False,
         formatDate='1'
     )
-    now = datetime.now()
     output='S&P500 = '+str(spx_bars[0].close)+' NASDAQ = '+str(ndx_bars[0].close)+'\n'
     #print(output)
     return output
 
-
+def get_spx_return_str(ib: IB):
+    output=''
+    spx = Contract(symbol='SPX',secType='IND')
+    ib.qualifyContracts(spx)
+    ib.reqHeadTimeStamp(spx, whatToShow='TRADES', useRTH=False)
+    spx_bars=ib.reqHistoricalData(
+        contract=spx,
+        endDateTime='',
+        durationStr='60 S',
+        barSizeSetting='5 secs',
+        whatToShow='TRADES',
+        useRTH=False,
+        formatDate='1'
+    )
+    output='S&P500 = '+str(spx_bars[0].close)
+    return output
+    
 def query_account_info_return_str(ib : IB):
     accounts=[]
     output=''
