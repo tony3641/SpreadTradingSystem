@@ -75,7 +75,7 @@ def query_account_info_return_str(ib : IB):
         else:
             output+=('No position yet.\n')
         output+=('\n')
-    return output
+    return output, positions
 
 ib = IB()
 ib.connect('127.0.0.1', 4001, clientId=0)

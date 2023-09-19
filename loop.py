@@ -10,6 +10,7 @@ import math
 from threading import Thread
 
 port_no = 4001
+paper_trade_port_no = 4002
 
 def future_next_expirary():
     month=math.ceil(dt.datetime.now().month/3)*3
@@ -22,7 +23,7 @@ def future_next_expirary():
 
 ib = IB()
 
-status = ib.connect('127.0.0.1', port_no, clientId=0x2)
+status = ib.connect('127.0.0.1', 4001, clientId=0x2)
 status = True
 if not status:
     sys.exit(0)
