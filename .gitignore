@@ -1,2 +1,9 @@
 
 discord_bot/.env
+__pycache__/spread_util.cpython-310.pyc
+*.pyc
+src/.env
+*.log
+*.pyc
+*.json
+*.pyc

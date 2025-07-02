@@ -78,6 +78,8 @@ def calc_spread_price(ib : IB, spread_type : SpreadType, long_contract : Contrac
 def calc_optimized_long_leg(ib: IB, spread_type : SpreadType, short_contract : Contract, \
     *tickers, margin : int, max_gap : int):
     max_premium = 0
+    optimized_contract = None
+    optimized_quantity = 0
     short_ticker = ib.reqTickers(short_contract)[0] #update price
     if spread_type == SpreadType.BULLPUT:
         print('Sweeping PUT chain to find best long leg...')
@@ -87,9 +89,9 @@ def calc_optimized_long_leg(ib: IB, spread_type : SpreadType, short_contract : C
             long_ticker = ib.reqTickers(long_contract)[0] #update price
             print('Checking:'+str(long_contract.strike)+' PUT:')
             quantity = math.floor(margin/((short_contract.strike-long_contract.strike)*100))
-            print(str(quantity)+' spread for margin = $'+str(margin))
-            premium = abs(long_ticker.ask - short_ticker.bid) * quantity * 100
-            print('Possible premium = $'+str(premium)+'\n')
+            print(str(quantity)+' spread for margin = $'+str(100 * quantity * (short_contract.strike - long_contract.strike)))
+            premium = abs(long_ticker.ask - short_ticker.bid) * quantity * 100 - 2.4 #commision = $2.4 / spread
+            print('Possible premium = $'+str(premium)+' after commision = $'+str(2.4*quantity)+'\n')
             if premium > max_premium:
                 max_premium = premium
                 optimized_contract = long_contract
